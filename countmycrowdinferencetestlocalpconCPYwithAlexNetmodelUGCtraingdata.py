@@ -2,12 +2,13 @@
 # conda install pytorch
 #pip install easydict
 #conda install -c pytorch torchvision or conda install pytorch torchvision torchaudio cudatoolkit=11.0 -c pytorch for GPU local device
-#pip install pandas
-#pip install matplotlib
-#conda install -c conda-forge opencv
-#conda install -c anaconda pillow
+# pip install pandas
+# pip install matplotlib
+# conda install -c conda-forge opencv
+# conda install -c anaconda pillow
+# conda install scipy
+
 #conda activate ailab
-#conda install scipy
 
 import urllib.request
 from pathlib import Path
@@ -22,7 +23,7 @@ import torch
 import sys
 import pandas as pd
 import misc.transforms as own_transforms
-from config import cfg
+from configAlexNet import cfg
 from models.CC import CrowdCounter
 from misc.utils import *
 
@@ -41,18 +42,21 @@ restore = standard_transforms.Compose([
     ])
 pil_to_tensor = standard_transforms.ToTensor()
 
-img_path = './airporttest/SHHBtest.jpg' # the image to be tested with the inference
+#img_path = './airporttest/SHHBtest.jpg' # the image to be tested with the inference
 #img_path = './airporttest/airportfromprojectsmallcrop.jpg'
 #img_path = './airporttest/TestLivePAI.jpg'
-#img_path = './airporttest/airportcongestion1.jpg'
+#img_path = './airporttest/airportcongestion2.jpg'
 #img_path = './airporttest/airportcongestion1.jpg'
 #img_path = './airporttest/testPAIResized.jpg'
-#img_path = './airporttest/testPAI2resized.jpg'
+img_path = './airporttest/testPAI2resized.jpg'
 print('image:',img_path)
 
-model_path = './trainedmodel/UCF50_AlexNet_4000epoch(1).pth' # A large training had been done using AlexNet on UCF50 data up to 4000 epochs
+#model_path = './trainedmodel/UCF50_AlexNet_4000epoch(1).pth' # A large training had been done using AlexNet on UCF50 data up to 4000 epochs OK
 #model_path = './trainedmodel/crowdcounting_SHHB_MCNN_ep_595_mae_36.6_mse_57.1.pth'
-#model_path = './trainedmodel/AlexNet_WE_10epochs_ep_1_mae_25.5_mse_0.0.pth'
+#model_path = './trainedmodel/AlexNet_WE_10epochs_ep_1_mae_25.5_mse_0.0.pth' KO
+#model_path = './trainedmodel/UCF50_AlexNet_4000epoch(1).pth' OK on CPU KO
+model_path = './trainedmodel/02-AlexNet_all_ep_83_mae_46.3_mse_110.9.pth' #OK on CPU
+
 
 device = torch.device('cpu') #to force to use CPU if local PC execution
 model = CrowdCounter(cfg.GPU_ID,'AlexNet') #to be change to the neural network architecture used AlexNet or MCNN aligned with the saved model pth already loaded
